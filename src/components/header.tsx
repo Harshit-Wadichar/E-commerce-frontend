@@ -1,21 +1,71 @@
-import { Link } from 'react-router-dom'
+import { useState } from "react";
 import {
-    FaSearch,
-    FaShoppingBag
-} from 'react-icons/fa'
+  FaSearch,
+  FaShoppingBag,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaUser,
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
+import type { User } from "../types/types";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import toast from "react-hot-toast";
 
-function header() {
-  return (
-   <nav>
-<Link to={"/"}>Home</Link>
-<Link to={"/search"}>
-<FaSearch />
-</Link>
-<Link to={"/cart"}>
-<FaShoppingBag />
-</Link>
-</nav>
-  )
+interface PropsType {
+  user: User | null;
 }
 
-export default header
+const Header = ({user}: PropsType) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const logoutHandler = async () => {
+    try {
+      await signOut(auth);
+      toast.success("Signed Out Successfull");
+    } catch (error) {
+      toast.error("Sign Out Failed");
+    }
+  };
+  return (
+    <nav className="header">
+      <Link onClick={() => setIsOpen(false)} to={"/"}>
+        Home
+      </Link>
+      <Link onClick={() => setIsOpen(false)} to={"/search"}>
+        <FaSearch />
+      </Link>
+      <Link onClick={() => setIsOpen(false)} to={"/cart"}>
+        <FaShoppingBag />
+      </Link>
+      {user?._id ? (
+        <>
+          <button onClick={() => setIsOpen((prev) => !prev)}>
+            <FaUser />
+          </button>
+          <dialog open={isOpen}>
+            <div>
+              {user.role === "admin" && (
+                <Link onClick={() => setIsOpen(false)} to={"/admin/dashboard"}>
+                  Admin
+                </Link>
+              )}
+              <Link onClick={() => setIsOpen(false)} to={"/my"}>
+                Orders
+              </Link>
+              <button onClick={logoutHandler}>
+                <FaSignOutAlt />
+              </button>
+            </div>
+          </dialog>
+        </>
+      ) : (
+        <Link to={"/login"}>
+          <FaSignInAlt />
+        </Link>
+      )}
+    </nav>
+  );
+};
+
+export default Header;

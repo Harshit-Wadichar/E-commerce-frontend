@@ -1,3 +1,19 @@
+@use "admin-styles/mixin" as m;
+
+@use "home";
+@use "_cart";
+@use "_shipping";
+@use "_login";
+@use "_search";
+@use "_product-details";
+@use "./variables" as v;
+@use "admin-styles/dashboard";
+@use "admin-styles/products";
+@use "admin-styles/chart";
+@use "admin-styles/dashboardapp";
+@use "admin-styles/mediaquery";
+@use "_footer";
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -8,6 +24,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  user-select: none;
 }
 
 a {
@@ -25,16 +45,89 @@ a {
   color: rgb(0, 195, 0);
 }
 
-@import "admin-styles/mixin";
+.container {
+  max-width: 1367px;
+  width: 100%;
+  margin: auto;
+  overflow: auto;
+  > h1 {
+    @include m.heading;
+    margin: 1rem 0;
+    text-align: left;
+  }
+}
 
-@import "admin-styles/dashboard";
-@import "admin-styles/products";
-@import "admin-styles/chart";
-@import "admin-styles/dashboardapp";
-@import "admin-styles/mediaquery";
+.header {
+  @include m.flex(row, flex-end, stretch, 1.2rem);
+  padding: 1rem;
+  a {
+    color: v.$color2;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+    &:hover {
+      color: v.$color3;
+    }
+  }
+
+  button {
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: transparent;
+    &:hover {
+      color: v.$color3;
+    }
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  dialog {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px;
+    width: 100px;
+    position: absolute;
+    left: calc(100% - 105px);
+    top: 8%;
+    > div {
+      @include m.flex(column, flex-start, center, 0.1rem);
+    }
+  }
+}
+
+.heading {
+  @include m.heading;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.not-found {
+  height: 80vh;
+  @include m.flex(column);
+  > svg {
+    font-size: 5rem;
+  }
+}
+
+.checkout-container {
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+  > form {
+    @include m.flex(column, flex-start, stretch, 2rem);
+
+    > button {
+      @include m.btn(1rem, v.$color3, v.$color1);
+      width: 100%;
+      font-size: 1.1rem;
+    }
+  }
+}
 
 .admin-container {
-  @include grid(1fr 4fr, 2rem);
+  @include m.grid(1fr 4fr, 2rem);
   height: 100vh;
   background-color: rgb(247, 247, 247);
   > aside {
@@ -50,19 +143,19 @@ a {
     > div {
       margin: 2rem 1rem;
       > h5 {
-        @include heading(2px);
+        @include m.heading(2px);
         opacity: 0.8;
         margin: 1rem 0;
       }
       > ul {
-        @include flex(column, unset, unset, 0.5rem);
+        @include m.flex(column, unset, unset, 0.5rem);
         list-style: none;
         > li {
           padding: 0.5rem 1rem;
           border-radius: 10px;
           a {
             color: rgba(0, 0, 0, 0.825);
-            @include flex(row, unset);
+            @include m.flex(row, unset);
           }
         }
       }
@@ -135,7 +228,7 @@ a {
 }
 
 .table-pagination {
-  @include flex;
+  @include m.flex;
   padding: 2rem;
   > button {
     padding: 0.5rem 1rem;
@@ -155,7 +248,7 @@ a {
 #hamburger {
   display: grid;
   place-items: center;
-  @include square(3rem);
+  @include m.square(3rem);
   border: none;
   outline: none;
   cursor: pointer;
@@ -185,9 +278,9 @@ a {
 .loader {
   width: 100%;
   height: 100vh;
-  @include flex;
+  @include m.flex;
   > div {
-    @include square(10rem);
+    @include m.square(10rem);
     border-radius: 50%;
     border-top: 1rem solid rgb(43, 43, 43);
     border-left: 1rem solid rgb(43, 43, 43);
@@ -195,6 +288,20 @@ a {
     border-bottom: 1rem solid #fff;
     animation: loading-animation 0.5s linear infinite;
   }
+}
+
+.skeleton-loader {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-shape {
+  height: 30px;
+  width: 100%;
+  background-color: #ddd;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  animation: skeleton-loading 1.5s infinite;
 }
 
 @keyframes loading-animation {
@@ -205,5 +312,17 @@ a {
 @keyframes up-and-down {
   to {
     transform: translate(-50%, -20%);
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
   }
 }
