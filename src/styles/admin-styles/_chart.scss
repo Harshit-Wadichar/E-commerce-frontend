@@ -1,3 +1,5 @@
+@use "mixin" as m;
+
 .chart-container {
   background-color: white;
   padding: 4rem;
@@ -19,7 +21,7 @@
     > h2 {
       margin: 2rem 0;
       text-align: center;
-      @include heading(2px);
+      @include m.heading(2px);
     }
   }
 }

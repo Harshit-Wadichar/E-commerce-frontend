@@ -30,7 +30,7 @@ function App() {
   return (
     <Router>
 
-      <Header/>
+      <Header user={null} />
 
       <Suspense fallback={<Loader/>}>
       <Routes>
