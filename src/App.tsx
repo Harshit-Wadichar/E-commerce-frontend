@@ -3,10 +3,14 @@ import { lazy, Suspense } from 'react'
 import Loader from './components/loader'
 import Header from './components/header'
 
+const Login = lazy(()=> import('./pages/login'))
 const Shipping = lazy(()=> import('./pages/shipping'))
 const Home = lazy(()=> import('./pages/home'))
 const Search = lazy(()=> import('./pages/search'))
 const Cart = lazy(()=> import('./pages/cart'))
+const Orders = lazy(()=> import('./pages/orders'))
+const OrdersDetails = lazy(()=> import('./pages/order-details'))
+
 
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const Products = lazy(() => import("./pages/admin/products"));
@@ -32,7 +36,7 @@ function App() {
   return (
     <Router>
 
-      <Header user={null} />
+      <Header  />
 
       <Suspense fallback={<Loader/>}>
       <Routes>
@@ -40,8 +44,14 @@ function App() {
         <Route path="/search" element={<Search/>} />
         <Route path="/cart" element={<Cart/>} />
 
+      {/*Login route*/}
+      <Route path="/login" element={<Login />} />
+
+      {/*shipping route*/}
       <Route>
         <Route path="/shipping" element={<Shipping/>} />
+         <Route path="/orders" element={<Orders/>} />
+         <Route path="/orders/:id" element={<OrdersDetails/>} />
       </Route>
 
 <Route

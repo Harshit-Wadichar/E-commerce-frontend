@@ -19,7 +19,12 @@ interface PropsType {
   onLogout?: () => Promise<void>;
 }
 
-const Header = ({ user, onLogout }: PropsType) => {
+const user = {
+  id: "sdfsdf",
+  role: "admin"
+};
+
+const Header = ({  onLogout }: PropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const logoutHandler = async () => {
@@ -44,7 +49,7 @@ const Header = ({ user, onLogout }: PropsType) => {
       <Link onClick={() => setIsOpen(false)} to={"/cart"}>
         <FaShoppingBag />
       </Link>
-      {user?._id ? (
+      {user?.id ? (
         <>
           <button onClick={() => setIsOpen((prev) => !prev)}>
             <FaUser />
@@ -56,7 +61,7 @@ const Header = ({ user, onLogout }: PropsType) => {
                   Admin
                 </Link>
               )}
-              <Link onClick={() => setIsOpen(false)} to={"/my"}>
+              <Link onClick={() => setIsOpen(false)} to={"/orders"}>
                 Orders
               </Link>
               <button onClick={logoutHandler}>

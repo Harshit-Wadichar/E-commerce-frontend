@@ -1,7 +1,7 @@
 @use "./admin-styles/mixin" as m;
 @use "./variables" as v;
 
-.search {
+.product-search-page {
   padding: 2rem;
   @include m.flex(row, flex-start, stretch, 2rem);
   min-height: calc(100vh - 6.5vh);
