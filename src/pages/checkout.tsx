@@ -67,7 +67,7 @@ const CheckOutForm = () => {
       return toast.error(error.message || "Something went wrong");
     }
 
-    if (paymentIntent.status === "succeeded") {
+    if (paymentIntent && paymentIntent.status === "succeeded") {
       const res = await newOrder(orderData);
       dispatch(resetCart());
       navigate("/orders");
