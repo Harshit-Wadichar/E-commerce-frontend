@@ -44,9 +44,17 @@ function Cart() {
   useEffect(() => {
     const { token: cancelToken, cancel } = axios.CancelToken.source();
 
+    if (!couponCode) {
+      dispatch(discountApplied(0));
+      dispatch(calculatePrice());
+      return () => {
+        cancel();
+      };
+    }
+
     const timeOutID = setTimeout(() => {
       axios
-        .post(`${server}/api/v1/payment/discount?coupon=${couponCode}`, {
+        .get(`${server}/api/v1/payment/discount?coupon=${couponCode}`, {
           cancelToken,
         })
         .then((res) => {
