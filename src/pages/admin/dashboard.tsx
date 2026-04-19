@@ -8,7 +8,7 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import { BarChart, DoughnutChart } from "../../components/admin/Charts";
 import Table from "../../components/admin/DashboardTable";
 import { Skeleton } from "../../components/loader";
-import { useStatsQuery } from "../../redux/api/dashboardApi";
+import { useStatsQuery } from "../../redux/api/dashboardAPI";
 import type { RootState } from "../../redux/store";
 import type { CustomError } from "../../types/api-types";
 import { getLastMonth } from "../../utils/features";

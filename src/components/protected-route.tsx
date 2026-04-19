@@ -7,7 +7,7 @@ interface Props {
   isAuthenticated: boolean;
   adminOnly?: boolean;
   admin?: boolean;
-  redirect: string;
+  redirect?: string;
 }
 
 const ProtectedRoute = ({

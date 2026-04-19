@@ -1,5 +1,5 @@
 import { useFileHandler } from "6pp";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -10,7 +10,7 @@ import {
   useProductDetailsQuery,
   useUpdateProductMutation,
 } from "../../../redux/api/productAPI";
-import { RootState } from "../../../redux/store";
+import type { RootState } from "../../../redux/store";
 import { responseToast, transformImage } from "../../../utils/features";
 
 const Productmanagement = () => {

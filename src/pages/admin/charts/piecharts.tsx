@@ -1,10 +1,7 @@
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { DoughnutChart, PieChart } from "../../../components/admin/Charts";
-import { categories } from "../../../assets/data.json";
-import type { CustomError } from "../../../types/api-types";
-import toast from "react-hot-toast";
-import { usePieQuery } from "../../../redux/api/dashboardApi";
-import type { RootState } from "../../redux/store";
+import { usePieQuery } from "../../../redux/api/dashboardAPI";
+import type { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
 import { Skeleton } from "../../../components/loader";
 import { Navigate } from "react-router-dom";

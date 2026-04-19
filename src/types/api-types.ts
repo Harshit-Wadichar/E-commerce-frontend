@@ -94,7 +94,6 @@ export type UpdateProductRequest = {
 export type DeleteProductRequest = {
   userId: string;
   productId: string;
-  formData: FormData;
 };
 
 export type NewOrderRequest = {

@@ -81,7 +81,7 @@ export type Stats = {
     male: number;
     female: number;
   };
-  latestTransaction: latestTransaction;
+  latestTransaction: latestTransaction[];
 };
 
 type OrderFullfillment = {

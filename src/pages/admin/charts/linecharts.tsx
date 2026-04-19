@@ -1,11 +1,9 @@
-import toast from "react-hot-toast";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { LineChart } from "../../../components/admin/Charts";
-import type { CustomError } from "../../../types/api-types";
 import { getLastMonth } from "../../../utils/features";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../redux/store";
-import { useLineQuery } from "../../../redux/api/dashboardApi";
+import { useLineQuery } from "../../../redux/api/dashboardAPI";
 import { Skeleton } from "../../../components/loader";
 import { Navigate } from "react-router-dom";
 
@@ -14,7 +12,7 @@ const { last12Months: months } = getLastMonth();
 const Linecharts = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
 
-  const { isLoading, data, error, isError } = useLineQuery(user?._id!);
+  const { isLoading, data, isError } = useLineQuery(user?._id!);
 
   const products = data?.charts.products || [];
   const users = data?.charts.users || [];

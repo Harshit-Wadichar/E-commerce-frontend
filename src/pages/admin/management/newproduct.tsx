@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import type { UserReducerInitialState } from "../../../types/reducer-types";
 import { useSelector } from "react-redux/es/hooks/useSelector";

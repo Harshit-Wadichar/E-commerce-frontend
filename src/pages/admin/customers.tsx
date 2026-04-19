@@ -1,6 +1,6 @@
-import { ReactElement, useEffect, useState } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { FaTrash } from "react-icons/fa";
-import { Column } from "react-table";
+import type { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
 import type { RootState } from "../../redux/store";
@@ -12,7 +12,6 @@ import {
 import type { CustomError } from "../../types/api-types";
 import toast from "react-hot-toast";
 import { Skeleton } from "../../components/loader";
-import { img } from "framer-motion/client";
 import { responseToast } from "../../utils/features";
 
 interface DataType {
