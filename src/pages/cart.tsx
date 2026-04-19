@@ -54,7 +54,7 @@ function Cart() {
 
     const timeOutID = setTimeout(() => {
       axios
-        .get(`${server}/api/v1/payment/discount?coupon=${couponCode}`, {
+        .post(`${server}/api/v1/payment/discount?coupon=${couponCode}`, {}, {
           cancelToken,
         })
         .then((res) => {

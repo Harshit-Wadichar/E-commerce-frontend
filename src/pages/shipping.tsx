@@ -45,7 +45,7 @@ const Shipping = () => {
       })
 
       navigate("/pay", {
-        state: data.clientSecret,
+        state: data.client_secret,
       })
     }
     catch(error){
