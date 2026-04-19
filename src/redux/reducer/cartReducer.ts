@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { CartReducerInitialState } from "../../types/reducer-types";
 import type { CartItem, ShippingInfo } from "../../types/types";
 

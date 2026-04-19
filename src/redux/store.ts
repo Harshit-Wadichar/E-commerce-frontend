@@ -4,7 +4,7 @@ import { userReducer } from './reducer/userReducer';
 import { productAPI } from './api/productAPI';
 import { cartReducer } from './reducer/cartReducer';
 import { orderApi } from './api/orderAPI';
-import { dashboardApi } from './api/dashboardApi';
+import { dashboardApi } from './api/dashboardAPI';
 
 export const server=import.meta.env.VITE_SERVER;
 

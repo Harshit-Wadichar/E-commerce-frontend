@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 import type { CustomError } from "../types/api-types";
 import { Skeleton } from "../components/loader";
 import { addToCart } from "../redux/reducer/cartReducer";
-import type CartItem from "../components/cart-item";
+import type { CartItem } from "../types/types";
 import { useDispatch } from "react-redux";
 
 function Search() {
@@ -17,7 +17,7 @@ function Search() {
     isLoading: loadingCategories,
     isError,
     error,
-  } = useCategoriesQuery();
+  } = useCategoriesQuery("");
 
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
@@ -93,7 +93,7 @@ function Search() {
           >
             <option value="">ALL</option>
             {!loadingCategories &&
-              categoriesResponse?.categories.map((i) => (
+              categoriesResponse?.Categories.map((i) => (
                 <option key={i} value={i}>
                   {i.toUpperCase()}
                 </option>
@@ -128,7 +128,7 @@ function Search() {
           </div>
         )}
 
-        {searchData && searchData?.totalPage > 1 && (
+        {searchData && searchData?.totalPages > 1 && (
           <article>
             <button
               disabled={!isPrevPage}

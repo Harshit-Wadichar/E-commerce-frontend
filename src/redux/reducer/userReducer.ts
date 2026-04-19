@@ -1,4 +1,4 @@
- import {createSlice, PayloadAction} from "@reduxjs/toolkit"
+ import {createSlice, type PayloadAction} from "@reduxjs/toolkit"
 import type { UserReducerInitialState } from "../../types/reducer-types";
 import type { User } from "../../types/types";
 
