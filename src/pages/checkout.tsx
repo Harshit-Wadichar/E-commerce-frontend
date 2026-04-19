@@ -64,7 +64,7 @@ const CheckOutForm = () => {
 
     if (error) {
       setIsProcessing(false);
-      toast.error(error.message || "Something went wrong");
+      return toast.error(error.message || "Something went wrong");
     }
 
     if (paymentIntent.status === "succeeded") {

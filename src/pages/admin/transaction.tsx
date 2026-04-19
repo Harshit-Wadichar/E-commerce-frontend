@@ -1,9 +1,9 @@
-import type { RootState } from "@reduxjs/toolkit/query";
-import { ReactElement, useEffect, useState } from "react";
+import type { RootState } from "../../redux/store";
+import { useEffect, useState, type ReactElement } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Column } from "react-table";
+import type { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
 import { Skeleton } from "../../components/loader";

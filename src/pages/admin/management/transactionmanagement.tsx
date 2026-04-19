@@ -5,11 +5,10 @@ import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { useDeleteOrderMutation, useOrderDetailsQuery, useUpdateOrderMutation } from "../../../redux/api/orderAPI";
 import { server } from "../../../redux/store";
 import type { UserReducerInitialState } from "../../../types/reducer-types";
-import type { OrderItem } from "../../../types/types";
+import type { Order, OrderItem } from "../../../types/types";
 import { Skeleton } from "../../../components/loader";
 import { responseToast } from "../../../utils/features";
 
-const orderItems: any[] = [];
 
 const defaultData: Order = {
   shippingInfo: {
@@ -91,7 +90,7 @@ const TransactionManagement = () => {
             >
               <h2>Order Items</h2>
 
-              {orderItems.map((i) => (
+              {orderItems.map((i: OrderItem) => (
                 <ProductCard
                   key={i._id}
                   name={i.name}

@@ -10,7 +10,7 @@ import {
   removeCartItem,
 } from "../redux/reducer/cartReducer";
 import type { CartReducerInitialState } from "../types/reducer-types";
-import { CartItem } from "../types/types";
+import type { CartItem } from "../types/types";
 import axios from "axios";
 import { server } from "../redux/store";
 
@@ -22,7 +22,7 @@ function Cart() {
 
   const dispatch = useDispatch();
 
-  const [couponCode, setCouponCode] = useState<String>("");
+  const [couponCode, setCouponCode] = useState<string>("");
   const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
 
   const incrementHandler = (cartItem: CartItem) => {
