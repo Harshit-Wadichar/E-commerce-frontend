@@ -93,7 +93,7 @@ function Search() {
           >
             <option value="">ALL</option>
             {!loadingCategories &&
-              categoriesResponse?.Categories.map((i: string) => (
+              categoriesResponse?.categories?.map((i: string) => (
                 <option key={i} value={i}>
                   {i.toUpperCase()}
                 </option>
@@ -114,7 +114,7 @@ function Search() {
           <Skeleton />
         ) : (
           <div className="search-product-list">
-            {searchData?.products.map((i) => (
+            {searchData?.products?.map((i) => (
               <ProductCard
                 key={i._id}
                 productId={i._id}

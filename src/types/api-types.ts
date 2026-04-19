@@ -30,7 +30,7 @@ export type AllProductsResponse = {
 
 export type CategoriesResponse = {
   success: boolean;
-  Categories: string[];
+  categories: string[];
 };
 
 export type SearchProductsResponse = AllProductsResponse & {
