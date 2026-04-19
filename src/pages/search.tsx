@@ -93,7 +93,7 @@ function Search() {
           >
             <option value="">ALL</option>
             {!loadingCategories &&
-              categoriesResponse?.Categories.map((i) => (
+              categoriesResponse?.Categories.map((i: string) => (
                 <option key={i} value={i}>
                   {i.toUpperCase()}
                 </option>
