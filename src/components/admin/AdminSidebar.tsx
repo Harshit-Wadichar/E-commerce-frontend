@@ -16,13 +16,14 @@ import {
 } from "react-icons/ri";
 import { Link, useLocation, type Location } from "react-router-dom";
 import type { IconType } from "react-icons";
+import { MdDiscount } from "react-icons/md";
 
 const AdminSidebar = () => {
   const location = useLocation();
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [phoneActive, setPhoneActive] = useState<boolean>(
-    window.innerWidth < 1100
+    window.innerWidth < 1100,
   );
 
   const resizeHandler = () => {
@@ -100,6 +101,12 @@ const DivOne = ({ location }: { location: Location }) => (
         url="/admin/transaction"
         text="Transaction"
         Icon={AiFillFileText}
+        location={location}
+      />
+      <Li
+        url="/admin/discount"
+        text="Discount"
+        Icon={MdDiscount}
         location={location}
       />
     </ul>

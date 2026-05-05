@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
-import { server } from "../redux/store";
+import { Link } from "react-router-dom";
 import type { CartItem } from "../types/types";
+import { transformImage } from "../utils/features";
 
 type CartItemProps = {
   cartItem: CartItem;
@@ -20,13 +20,13 @@ function CartItemComponent({
 
   return (
     <div className="cart-item">
-      <img src={`${server}/${photo}`} alt="name" />
+      <img src={transformImage(photo)} alt="name" />
       <article>
         <Link to={`/product/${productId}`}>{name}</Link>
         <span>₹{price}</span>
       </article>
 
-      <div>
+       <div>
         <button onClick={() => decrementHandler(cartItem)}>-</button>
         <p>{quantity}</p>
         <button onClick={() => incrementHandler(cartItem)}>+</button>

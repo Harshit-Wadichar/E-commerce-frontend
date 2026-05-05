@@ -1,10 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type {
   AllProductsResponse,
+  AllReviewsResponse,
   CategoriesResponse,
   DeleteProductRequest,
+  DeleteReviewRequest,
   MessageResponse,
   NewProductRequest,
+  NewReviewRequest,
   ProductResponse,
   SearchProductsRequest,
   SearchProductsResponse,
@@ -24,11 +27,11 @@ export const productAPI = createApi({
     }),
     allProducts: builder.query<AllProductsResponse, string>({
       query: (id) => `admin-products?id=${id}`,
-       providesTags: ["product"],
+      providesTags: ["product"],
     }),
     categories: builder.query<CategoriesResponse, string>({
       query: () => `categories`,
-       providesTags: ["product"],
+      providesTags: ["product"],
     }),
 
     searchProducts: builder.query<
@@ -44,12 +47,40 @@ export const productAPI = createApi({
 
         return base;
       },
-       providesTags: ["product"],
+      providesTags: ["product"],
     }),
 
     productDetails: builder.query<ProductResponse, string>({
       query: (id) => id,
       providesTags: ["product"],
+    }),
+
+    getReviews: builder.query<AllReviewsResponse, string>({
+      query: (productId) => `review/${productId}`,
+      providesTags: ["product"],
+    }),
+
+    newReview: builder.mutation<MessageResponse, NewReviewRequest>({
+      query: ({ comment, rating, productId, userId }) => ({
+        url: `review/new/${productId}?id=${userId}`,
+        method: "POST",
+        body: { comment, rating },
+        headers: {
+          "Content-Type" : "application/json",
+        }
+      }),
+      invalidatesTags: ["product"],
+    }),
+
+    deleteReview: builder.mutation<MessageResponse, DeleteReviewRequest>({
+      query: ({reviewId, userId }) => ({
+        url: `/review/${reviewId}?id=${userId}`,
+        method: "DELETE",
+        headers: {
+          "Content-Type" : "application/json",
+        }
+      }),
+      invalidatesTags: ["product"],
     }),
 
     newProduct: builder.mutation<MessageResponse, NewProductRequest>({
@@ -58,7 +89,7 @@ export const productAPI = createApi({
         method: "POST",
         body: formData,
       }),
-       invalidatesTags: ["product"],
+      invalidatesTags: ["product"],
     }),
 
     updateProduct: builder.mutation<MessageResponse, UpdateProductRequest>({
@@ -67,7 +98,7 @@ export const productAPI = createApi({
         method: "PUT",
         body: formData,
       }),
-       invalidatesTags: ["product"],
+      invalidatesTags: ["product"],
     }),
 
     deleteProduct: builder.mutation<MessageResponse, DeleteProductRequest>({
@@ -75,9 +106,8 @@ export const productAPI = createApi({
         url: `${productId}?id=${userId}`,
         method: "Delete",
       }),
-       invalidatesTags: ["product"],
+      invalidatesTags: ["product"],
     }),
-
   }),
 });
 
@@ -86,7 +116,10 @@ export const {
   useAllProductsQuery,
   useCategoriesQuery,
   useSearchProductsQuery,
+  useNewReviewMutation,
+  useGetReviewsQuery,
   useNewProductMutation,
+  useDeleteReviewMutation,
   useProductDetailsQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
