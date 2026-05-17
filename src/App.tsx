@@ -59,17 +59,21 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log("User is signed in.");
-        const data = await getUser(user.uid);
-        dispatch(userExist(data.user));
+        try {
+          const data = await getUser(user.uid);
+          dispatch(userExist(data.user));
+        } catch {
+          dispatch(userNotExist());
+        }
       } else {
-        console.log("No user is signed in.");
         dispatch(userNotExist());
       }
     });
-  }, []);
+
+    return () => unsubscribe();
+  }, [dispatch]);
 
   return loading ? (
     <Loader />

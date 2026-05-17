@@ -3,19 +3,40 @@ import { useState } from 'react'
 import toast from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { auth } from '../firebase';
-import { useLoginMutation } from '../redux/api/userAPI';
-import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import type { MessageResponse } from '../types/api-types';
+import { getUser, useLoginMutation } from '../redux/api/userAPI';
+import { useDispatch } from 'react-redux';
+import { userExist } from '../redux/reducer/userReducer';
+
+const getErrorMessage = (error: unknown) => {
+    if (typeof error === "object" && error !== null && "data" in error) {
+        const data = (error as { data?: { message?: string } }).data;
+        if (data?.message) return data.message;
+    }
+
+    return "Login Failed";
+};
 
 function login() {
     const [gender, setGender] = useState("");
     const [date, setDate] = useState("");
+    const [isSigningIn, setIsSigningIn] = useState(false);
 
     const [login] = useLoginMutation();
+    const dispatch = useDispatch();
 
     const loginHandler = async () =>{
+        if (isSigningIn) return;
+
+        if (!gender || !date) {
+            toast.error("Please select gender and date of birth");
+            return;
+        }
+
+        setIsSigningIn(true);
+
         try{
             const provider =  new GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: "select_account" });
             const { user } = await signInWithPopup(auth, provider);
 
             const res = await login({
@@ -26,22 +47,17 @@ function login() {
                 role:"user",
                 dob: date,
                 _id:user.uid,
-            })
+            }).unwrap();
 
-            if("data" in res){
-                toast.success(res.data.message);
-            }
-            else{
-                const error = res.error as FetchBaseQueryError;
-                const message = (error.data as MessageResponse).message;
-                toast.error(message)
-            }
-
-            console.log(user);
+            const data = await getUser(user.uid);
+            dispatch(userExist(data.user));
+            toast.success(res.message);
 
         }
         catch(error){
-            toast.error("Login Failed");
+            toast.error(getErrorMessage(error));
+        } finally {
+            setIsSigningIn(false);
         }
     }
 
@@ -69,7 +85,7 @@ function login() {
 
             <div>
                 <p>Already Signed In Once</p>
-                <button onClick={loginHandler}>
+                <button onClick={loginHandler} disabled={isSigningIn} aria-label="Sign in with Google">
                     <FcGoogle />
                 </button>
                 <span>Sign in with Google</span>
